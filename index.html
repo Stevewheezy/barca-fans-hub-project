@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barca Fans Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="logo">
+      <h1>Barca Fans Hub</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#media-hub">Media Hub</a></li>
+        <li><a href="#matches">Match & Standings</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#fan-zone">Fan Zone</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-text">
+      <h2>Welcome to Barca Fans Hub</h2>
+      <p>Your ultimate destination for all things FC Barcelona!</p>
+      <p>
+        Barca Fans Hub is your ultimate destination for all things Barcelona FC. 
+        From news to match highlights, league standings, and a dedicated Fan Zone for interactions, we aim to connect fans worldwide.
+      </p>
+    </div>
+  </section>
+
+  <!-- Media Hub Section -->
+  <section id="media-hub" class="section">
+    <h2>Media Hub</h2>
+    <div class="media-container">
+      <div class="video">
+        <h3>Match Highlights</h3>
+        <video controls>
+          <source src="highlight.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="gallery">
+        <h3>Player Gallery</h3>
+        <div class="carousel" id="gallery">
+          <!-- Gallery items dynamically loaded -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Match & Standings Section -->
+  <section id="matches" class="section">
+    <h2>Match & Standings</h2>
+    <div class="tabs">
+      <button class="tab-button active" onclick="showTab('fixtures')">Upcoming Fixtures</button>
+      <button class="tab-button" onclick="showTab('table')">League Table</button>
+    </div>
+    <div class="tab-content">
+      <div id="fixtures" class="tab-panel active">
+        <ul id="fixtures-list">
+          <!-- Fixtures dynamically loaded -->
+        </ul>
+      </div>
+      <div id="table" class="tab-panel">
+        <table id="league-table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Team</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table dynamically loaded -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section id="news" class="section">
+    <h2>Latest News</h2>
+    <div id="news-container">
+      <!-- News dynamically loaded -->
+    </div>
+  </section>
+
+  <!-- Fan Zone Section -->
+  <section id="fan-zone" class="section">
+    <h2>Fan Zone</h2>
+    <form id="fan-form">
+      <textarea id="fan-input" placeholder="Share your thoughts here..." required></textarea>
+      <button type="submit">Post</button>
+    </form>
+    <div id="comments-section">
+      <h3>Comments</h3>
+      <ul id="comments-list">
+        <!-- Comments dynamically loaded -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Barca Fans Hub. All rights reserved. Designed by Stephen Oyelabi.</p>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
