@@ -37,24 +37,35 @@
   </section>
 
   <!-- Media Hub Section -->
-  <section id="media-hub" class="section">
-    <h2>Media Hub</h2>
-    <div class="media-container">
-      <div class="video">
-        <h3>Match Highlights</h3>
-        <video controls>
-          <source src="highlight.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div class="gallery">
-        <h3>Player Gallery</h3>
-        <div class="carousel" id="gallery">
-          <!-- Gallery items dynamically loaded -->
+<section id="media-hub" class="section">
+  <h2>Media Hub</h2>
+  <div class="media-container">
+    <!-- Match Highlights from Barca and La Liga -->
+    <div class="video">
+      <h3>Match Highlights</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/sAhOZLCMR7w?si=AMUsUWDy1njLzhLE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="highlight-gallery">
+        <!-- Barca Official Videos -->
+        <div id="barca-videos-section" class="video-section">
+          <h4>Barca Official Videos</h4>
+          <div id="barca-videos" class="video-gallery">
+            <!-- Barca videos dynamically loaded here -->
+          </div>
+        </div>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- Player Gallery -->
+    <div class="gallery">
+      <h3>Player Gallery</h3>
+      <div class="carousel" id="gallery">
+        <!-- Gallery items dynamically loaded -->
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <!-- Match & Standings Section -->
   <section id="matches" class="section">
@@ -113,6 +124,6 @@
   <footer>
     <p>&copy; 2025 Barca Fans Hub. All rights reserved. Designed by Stephen Oyelabi.</p>
   </footer>
-  <script src="script.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
