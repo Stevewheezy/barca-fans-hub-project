@@ -29,9 +29,7 @@
     <div class="hero-text">
       <h2>Welcome to Barca Fans Hub</h2>
       <p>Your ultimate destination for all things FC Barcelona!</p>
-      <p>
-        Barca Fans Hub is your ultimate destination for all things Barcelona FC. 
-        From news to match highlights, league standings, and a dedicated Fan Zone for interactions, we aim to connect fans worldwide.
+      <p>From news to match highlights, league standings, and a dedicated Fan Zone for interactions, we aim to connect fans worldwide.
       </p>
     </div>
   </section>
@@ -43,7 +41,16 @@
     <!-- Match Highlights from Barca and La Liga -->
     <div class="video">
       <h3>Match Highlights</h3>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/sAhOZLCMR7w?si=AMUsUWDy1njLzhLE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="auto" 
+  height="auto" 
+  style="aspect-ratio: 16/9;" 
+  src="https://www.youtube.com/embed/sAhOZLCMR7w?si=AMUsUWDy1njLzhLE" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen>
+</iframe>
       <div class="highlight-gallery">
         <!-- Barca Official Videos -->
         <div id="barca-videos-section" class="video-section">
@@ -55,47 +62,39 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Player Gallery -->
-    <div class="gallery">
-      <h3>Player Gallery</h3>
-      <div class="carousel" id="gallery">
-        <!-- Gallery items dynamically loaded -->
-      </div>
+<!-- Match & Standings Section -->
+<section id="matches" class="section">
+  <h2>Match & Standings</h2>
+  
+  <!-- Upcoming Fixtures -->
+  <div id="fixtures-section">
+    <h3>Upcoming Fixtures</h3>
+    <div id="fixtures">
+      <!-- Fixtures dynamically loaded by JS -->
+    </div>
+  </div>
+
+  <!-- Recent Results -->
+  <div id="results-section">
+    <h3>Recent Results</h3>
+    <div id="recent-results">
+      <!-- Results dynamically loaded by JS -->
+    </div>
+  </div>
+  
+  <!-- League Standings -->
+  <div id="standings-section">
+    <h3>League Standings</h3>
+    <div id="league-standings">
+      <!-- Standings dynamically loaded by JS -->
     </div>
   </div>
 </section>
 
 
-  <!-- Match & Standings Section -->
-  <section id="matches" class="section">
-    <h2>Match & Standings</h2>
-    <div class="tabs">
-      <button class="tab-button active" onclick="showTab('fixtures')">Upcoming Fixtures</button>
-      <button class="tab-button" onclick="showTab('table')">League Table</button>
-    </div>
-    <div class="tab-content">
-      <div id="fixtures" class="tab-panel active">
-        <ul id="fixtures-list">
-          <!-- Fixtures dynamically loaded -->
-        </ul>
-      </div>
-      <div id="table" class="tab-panel">
-        <table id="league-table">
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Team</th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Table dynamically loaded -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
 
   <!-- News Section -->
   <section id="news" class="section">
