@@ -88,48 +88,242 @@
   }
   
   /* Media Hub */
+  /* Media Hub Section */
+#media-hub {
+  text-align: center;
+  padding: 30px 10px;
+  background: #f0f0f0; /* Light grey background */
+}
+
+#media-hub h2 {
+  font-size: 2rem;
+  color: #004d98; /* Barça blue */
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.media-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+.video {
+  width: 100%;
+  max-width: 700px; /* Limit width for large screens */
+  background: linear-gradient(135deg, #a50044, #004d98); /* Barça gradient */
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.video h3 {
+  color: #ffcc00; /* Barça yellow */
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.video iframe {
+  width: 100%;
+  max-width: 600px; /* Ensure videos are responsive */
+  height: auto;
+  aspect-ratio: 16/9; /* Maintain video aspect ratio */
+  border: 3px solid white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Highlight Gallery Section */
+.highlight-gallery {
+  margin-top: 20px;
+}
+
+.video-section {
+  margin-top: 10px;
+  padding: 15px;
+  border: 2px solid #004d98; /* Barça blue border */
+  border-radius: 10px;
+  background: #ffffff; /* White background */
+}
+
+.video-section h4 {
+  font-size: 1.2rem;
+  color: #a50044; /* Barça red */
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Dynamic Video Gallery Styling */
+.video-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.video-gallery .video-card {
+  width: 200px; /* Card size for individual videos */
+  background: linear-gradient(135deg, #ffcc00, #004d98); /* Barça yellow/blue gradient */
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.video-gallery .video-card:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.video-gallery .video-card iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border: 2px solid white;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  #media-hub h2 {
+    font-size: 1.8rem;
+  }
+
   .media-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    gap: 15px;
   }
-  
-  .video, .gallery {
-    flex: 1 1 35%;
-  }
-  
-  video {
-    width: 10%;
-    border: 3px solid #004d98; /* Blue border for video */
-    border-radius: 5px;
-  }
-  
-  .carousel {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
+
+  .video {
     padding: 10px;
-    background-color: #f0f0f0;
-    border: 2px dashed #a50044;
   }
-  
-  /* Upcoming Fixtures, Recent Results, League Standings Styling */
+
+  .video h3 {
+    font-size: 1.2rem;
+  }
+
+  .video iframe {
+    max-width: 100%; /* Ensure iframe scales down on smaller screens */
+  }
+
+  .video-gallery .video-card {
+    width: 90%; /* Make video cards full-width on mobile */
+  }
+}
+
+
+  /* Match & Standing */
+  /* Centralize content within sections */
 #fixtures-section, #results-section, #standings-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   background-color: #f0f0f0; /* Light Grey background */
-  border: 1px solid #a50044; /* Red border */
+  border: 2px solid #ffd700; /* Red border */
   padding: 20px;
-  border-radius: 5px; 
+  border-radius: 10px; 
+  margin: 10px auto;
+  max-width: 90%; /* Responsive width */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
 }
 
 #fixtures-section h3, #results-section h3, #standings-section h3 {
-  color: #a50044; 
+  color: #004d98; /* Barça blue for headings */
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: bold;
 }
 
-/* Optional: Add a subtle shadow for a more 3D effect */
-#fixtures-section, #results-section, #standings-section {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+/* Style for fixtures and results */
+#fixtures, #recent-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
+
+.fixture-item, .result-item {
+  background: linear-gradient(45deg, #a50044, #004d98); /* Barça gradient */
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  text-align: center;
+  font-size: 1rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fixture-item:hover, .result-item:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.fixture-item p, .result-item p {
+  margin: 5px 0;
+  font-weight: 600;
+}
+
+.fixture-item span, .result-item span {
+  font-weight: bold;
+  color: #ffcc00; /* Barça yellow for emphasis */
+}
+
+/* Style for League Standings Table */
+#league-standings table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  text-align: center;
+}
+
+#league-standings table th, #league-standings table td {
+  border: 1px solid #a50044; /* Red border for cells */
+  padding: 10px;
+  font-size: 1rem;
+}
+
+#league-standings table th {
+  background-color: #004d98; /* Barça blue for headers */
+  color: white;
+  font-weight: bold;
+}
+
+#league-standings table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternating row colors */
+}
+
+#league-standings table tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+#league-standings table tr:hover {
+  background-color: #ffcc00; /* Highlight row on hover */
+  color: #004d98; /* Text changes to Barça blue */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  #fixtures-section, #results-section, #standings-section {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+
+  .fixture-item, .result-item {
+    width: 90%; /* Full width for smaller screens */
+  }
+
+  #league-standings table {
+    font-size: 0.85rem; /* Smaller font for smaller screens */
+  }
+}
+
 
   /* News Section */
   #news-container {

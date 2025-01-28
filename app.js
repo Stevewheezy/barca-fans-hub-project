@@ -30,27 +30,34 @@ async function fetchYouTubeVideos(channelId) {
 
 // Display videos in the gallery
 function displayVideos(videos, containerId) {
-  const container = document.getElementById(containerId);
+  const containerSection = document.getElementById(`${containerId}-section`);
+  const container = containerSection?.querySelector(`#${containerId}`);
+  if (!container) {
+    console.error(`Container with ID "${containerId}" not found`);
+    return;
+  }
+
   container.innerHTML = ''; // Clear previous content
 
   videos.forEach((video) => {
-    const videoId = video.id.videoId;
-    const title = video.snippet.title;
-    const thumbnail = video.snippet.thumbnails.high.url;
+    const videoId = video.id?.videoId;
+    const title = video.snippet?.title;
+    const thumbnail = video.snippet?.thumbnails?.high?.url;
 
-    // Create video card
-    const videoCard = document.createElement('div');
-    videoCard.className = 'video-card';
-    videoCard.innerHTML = `
-      <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
-        <img src="${thumbnail}" alt="${title}" />
-        <h3>${title}</h3>
-      </a>
-    `;
-
-    container.appendChild(videoCard);
+    if (videoId && title && thumbnail) {
+      const videoCard = document.createElement('div');
+      videoCard.className = 'video-card';
+      videoCard.innerHTML = `
+        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+          <img src="${thumbnail}" alt="${title}">
+          <h3>${title}</h3>
+        </a>
+      `;
+      container.appendChild(videoCard);
+    }
   });
 }
+
 
 // Main function to fetch and display videos
 async function loadVideos() {
@@ -159,20 +166,28 @@ function displayResults(results, containerId) {
 }
 
 // Function to display league standings
+// Function to display league standings in a table
 function displayStandings(standings, containerId) {
   const container = document.getElementById(containerId);
-  container.innerHTML = ''; // Clear previous content
+  const tableBody = container.querySelector('#standings-table tbody');
+  
+  tableBody.innerHTML = ''; // Clear previous table content
 
-  standings.forEach((team, index) => {
-    const standing = document.createElement('div');
-    standing.className = 'standing';
-    standing.innerHTML = `
-      <p><strong>${index + 1}. ${team.team.name}</strong> - ${team.points} points</p>
-      <p>Played: ${team.all.played}, Won: ${team.all.win}, Drawn: ${team.all.draw}, Lost: ${team.all.lose}</p>
+  standings.slice(0, 5).forEach((team, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${team.team.name}</td>
+      <td>${team.points}</td>
+      <td>${team.all.played}</td>
+      <td>${team.all.win}</td>
+      <td>${team.all.draw}</td>
+      <td>${team.all.lose}</td>
     `;
-    container.appendChild(standing);
+    tableBody.appendChild(row);
   });
 }
+
 
 // Main function to load all data
 async function loadFootballData() {
