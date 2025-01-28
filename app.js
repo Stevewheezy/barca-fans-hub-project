@@ -1,205 +1,175 @@
 
+const apiKey = 'AIzaSyC8yPGKwpOv665ipowl_8i0qXBLYNp1fJ0';
+const barcaVideosSection = document.getElementById('barca-videos');
 
-const API_KEY = 'AIzaSyBaCC7YwtnNW71endAk99wQh9xul3xhXP8'; // Replace with your YouTube API key
-
-// Channel IDs
-const BARCA_CHANNEL_ID = 'UC14UlmYlSNiQCBe9Eookf_A';
-
-// Number of videos to fetch from each channel
-const MAX_RESULTS = 3;
-
-// Fetch videos from YouTube for a specific channel
-async function fetchYouTubeVideos(channelId) {
-  const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&maxResults=${MAX_RESULTS}&order=date&key=${API_KEY}`;
-  
+async function fetchBarcaVideos() {
   try {
-    const response = await fetch(endpoint);
+    const channelId = 'UC1FCxn5XK8y8cOWbpsBpWeg'; // FC Barcelona YouTube channel ID
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=3&order=date&type=video&key=${apiKey}`;
+
+    const response = await fetch(url);
     const data = await response.json();
 
-    if (data.items) {
-      return data.items; // Return the list of videos
-    } else {
-      console.error('No videos found:', data);
-      return [];
+    if (!data.items) {
+      console.error('No videos found for FC Barcelona channel.');
+      return;
     }
-  } catch (error) {
-    console.error('Error fetching YouTube videos:', error);
-    return [];
-  }
-}
 
-// Display videos in the gallery
-function displayVideos(videos, containerId) {
-  const containerSection = document.getElementById(`${containerId}-section`);
-  const container = containerSection?.querySelector(`#${containerId}`);
-  if (!container) {
-    console.error(`Container with ID "${containerId}" not found`);
-    return;
-  }
+    data.items.forEach(item => {
+      const videoId = item.id.videoId;
+      const title = item.snippet.title;
+      const thumbnail = item.snippet.thumbnails.default.url;
 
-  container.innerHTML = ''; // Clear previous content
+      const videoDiv = document.createElement('div');
+      videoDiv.classList.add('video-item');
 
-  videos.forEach((video) => {
-    const videoId = video.id?.videoId;
-    const title = video.snippet?.title;
-    const thumbnail = video.snippet?.thumbnails?.high?.url;
-
-    if (videoId && title && thumbnail) {
-      const videoCard = document.createElement('div');
-      videoCard.className = 'video-card';
-      videoCard.innerHTML = `
+      videoDiv.innerHTML = `
         <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
-          <img src="${thumbnail}" alt="${title}">
-          <h3>${title}</h3>
+          <img src="${thumbnail}" alt="${title}" />
+          <p>${title}</p>
         </a>
       `;
-      container.appendChild(videoCard);
-    }
-  });
+
+      barcaVideosSection.appendChild(videoDiv);
+    });
+  } catch (error) {
+    console.error('Error fetching videos:', error);
+  }
 }
 
-
-// Main function to fetch and display videos
-async function loadVideos() {
-  const barcaVideos = await fetchYouTubeVideos(BARCA_CHANNEL_ID);
-  
-  // Display videos in respective sections
-  displayVideos(barcaVideos, 'barca-videos');
-}
-
-// Call the main function on page load
-loadVideos();
+fetchBarcaVideos();
 
 // Football Fictures, League Table & Recent Results
-const FOOTBALL_API_KEY = '285d8724ae01f5f64f3ed941d96da402'; // Replace with your Football API key
-const FOOTBALL_BASE_URL = 'https://v3.football.api-sports.io';
-const TEAM_ID = 529; // Barcelona's Team ID
-const LEAGUE_ID = 140; // La Liga's League ID
-const SEASON = 2024; // Current Season
+const apiKey = '1e6b9984abc095b8bcd0838f25408a2f'; // Replace with your actual API key
+const fixturesSection = document.getElementById('fixtures');
+const resultsSection = document.getElementById('recent-results');
+const standingsTable = document.getElementById('standings-table');
+const standingsTableBody = document.getElementById('standings-table').getElementsByTagName('tbody')[0];
 
-// Function to fetch upcoming fixtures
-async function fetchFixtures(teamId, leagueId, season) {
-  const endpoint = `${FOOTBALL_BASE_URL}/fixtures?team=${teamId}&league=${leagueId}&season=${season}&next=5`;
+// Helper function to fetch data from API-Football
+async function fetchData(endpoint) {
+  const headers = {
+    'x-rapidapi-key': apiKey,
+    'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
+  };
 
   try {
-    const response = await fetch(endpoint, {
-      headers: {
-        'x-rapidapi-key': FOOTBALL_API_KEY,
-        'x-rapidapi-host': 'v3.football.api-sports.io',
-      },
+    const response = await fetch(`https://api-football-v1.p.rapidapi.com/v3/${endpoint}`, {
+      headers: headers
     });
     const data = await response.json();
-    return data.response || [];
+    return data.response;
   } catch (error) {
-    console.error('Error fetching fixtures:', error);
-    return [];
+    console.error('Error fetching data:', error);
+    return []; // Return empty array on error
   }
 }
 
-// Function to fetch recent results
-async function fetchResults(teamId, leagueId, season) {
-  const endpoint = `${FOOTBALL_BASE_URL}/fixtures?team=${teamId}&league=${leagueId}&season=${season}&last=5`;
-
+// Fetch and display upcoming fixtures
+async function displayFixtures() {
   try {
-    const response = await fetch(endpoint, {
-      headers: {
-        'x-rapidapi-key': FOOTBALL_API_KEY,
-        'x-rapidapi-host': 'v3.football.api-sports.io',
-      },
+    const fixtures = await fetchData('fixtures');
+    fixtures.forEach(fixture => {
+      const fixtureDiv = document.createElement('div');
+      fixtureDiv.classList.add('fixture');
+      fixtureDiv.innerHTML = `
+        <p>${fixture.fixture.date} - ${fixture.teams.home.name} vs ${fixture.teams.away.name}</p>
+      `;
+      fixturesSection.appendChild(fixtureDiv);
     });
-    const data = await response.json();
-    return data.response || [];
   } catch (error) {
-    console.error('Error fetching results:', error);
-    return [];
+    console.error('Error displaying fixtures:', error);
   }
 }
 
-// Function to fetch league standings
-async function fetchStandings(leagueId, season) {
-  const endpoint = `${FOOTBALL_BASE_URL}/standings?league=${leagueId}&season=${season}`;
-
+// Fetch and display recent results
+async function displayResults() {
   try {
-    const response = await fetch(endpoint, {
-      headers: {
-        'x-rapidapi-key': FOOTBALL_API_KEY,
-        'x-rapidapi-host': 'v3.football.api-sports.io',
-      },
+    const results = await fetchData('fixtures?last=5'); 
+    results.forEach(result => {
+      const resultDiv = document.createElement('div');
+      resultDiv.classList.add('result');
+      resultDiv.innerHTML = `
+        <p>${result.fixture.date} - ${result.teams.home.name} ${result.goals.home} - ${result.goals.away} ${result.teams.away.name}</p>
+      `;
+      resultsSection.appendChild(resultDiv);
     });
-    const data = await response.json();
-    return data.response[0].league.standings[0] || [];
   } catch (error) {
-    console.error('Error fetching standings:', error);
-    return [];
+    console.error('Error displaying results:', error);
   }
 }
 
-// Function to display fixtures
-function displayFixtures(fixtures, containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = ''; // Clear previous content
-
-  fixtures.forEach((fixture) => {
-    const match = document.createElement('div');
-    match.className = 'fixture';
-    match.innerHTML = `
-      <p><strong>${fixture.teams.home.name}</strong> vs <strong>${fixture.teams.away.name}</strong></p>
-      <p>${new Date(fixture.fixture.date).toLocaleString()}</p>
-    `;
-    container.appendChild(match);
-  });
+// Fetch and display league standings
+async function displayStandings() {
+  try {
+    const standings = await fetchData('league_table/1'); // Replace '1' with the actual league ID
+    standings.forEach(team => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${team.position}</td>
+        <td>${team.team.name}</td>
+        <td>${team.points}</td>
+        <td>${team.playedGames}</td>
+      `;
+      standingsTableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error displaying standings:', error);
+  }
 }
 
-// Function to display results
-function displayResults(results, containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = ''; // Clear previous content
+// Call the functions to fetch and display data
+displayFixtures();
+displayResults();
+displayStandings();
 
-  results.forEach((result) => {
-    const match = document.createElement('div');
-    match.className = 'result';
-    match.innerHTML = `
-      <p><strong>${result.teams.home.name}</strong> ${result.score.fulltime.home} - ${result.score.fulltime.away} <strong>${result.teams.away.name}</strong></p>
-    `;
-    container.appendChild(match);
-  });
-}
+// Fetch news articles related to FC Barcelona
+const apiKey = 'a144c03c658dcf5e1c5c9ba8edd31c1e'; 
+const newsContainer = document.getElementById('news-container');
 
-// Function to display league standings
-// Function to display league standings in a table
-function displayStandings(standings, containerId) {
-  const container = document.getElementById(containerId);
-  const tableBody = container.querySelector('#standings-table tbody');
-  
-  tableBody.innerHTML = ''; // Clear previous table content
+const fetchBarcelonaNews = async () => {
+  try {
+    const response = await fetch(`https://gnews.io/api/v4/search?q="FC Barcelona"&token=${apiKey}&lang=en&maxResults=5`);
+    const data = await response.json();
 
-  standings.slice(0, 5).forEach((team, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${team.team.name}</td>
-      <td>${team.points}</td>
-      <td>${team.all.played}</td>
-      <td>${team.all.win}</td>
-      <td>${team.all.draw}</td>
-      <td>${team.all.lose}</td>
-    `;
-    tableBody.appendChild(row);
-  });
-}
+    if (data.articles.length === 0) {
+      newsContainer.innerHTML = '<p>No English news found for FC Barcelona.</p>';
+      return;
+    }
 
+    data.articles.forEach(article => {
+      const articleDiv = document.createElement('div');
+      articleDiv.classList.add('article');
 
-// Main function to load all data
-async function loadFootballData() {
-  const fixtures = await fetchFixtures(TEAM_ID, LEAGUE_ID, SEASON);
-  const results = await fetchResults(TEAM_ID, LEAGUE_ID, SEASON);
-  const standings = await fetchStandings(LEAGUE_ID, SEASON);
+      if (article.image) { 
+        const image = document.createElement('img');
+        image.src = article.image; 
+        image.alt = article.title;
+        image.classList.add('thumbnail'); 
+        articleDiv.appendChild(image);
+      }
 
-  // Display data in respective sections
-  displayFixtures(fixtures, 'fixtures');
-  displayResults(results, 'recent-results');
-  displayStandings(standings, 'league-standings');
-}
+      const title = document.createElement('h3');
+      title.textContent = article.title;
 
-// Call the main function on page load
-loadFootballData();
+      const source = document.createElement('p');
+      source.textContent = `Source: ${article.source.name}`;
+
+      const link = document.createElement('a');
+      link.href = article.url;
+      link.textContent = 'Read More';
+      link.target = '_blank';
+
+      articleDiv.appendChild(title);
+      articleDiv.appendChild(source);
+      articleDiv.appendChild(link);
+
+      newsContainer.appendChild(articleDiv);
+    });
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    newsContainer.innerHTML = '<p>Failed to load news.</p>';
+  }
+};
+
+fetchBarcelonaNews();
