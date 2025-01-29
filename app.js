@@ -1,5 +1,8 @@
 // API keys
-const footballApiKey = '1e6b9984abc095b8bcd0838f25408a2f'; // API-Football
+const footballApiKey = '1e6b9984abc095b8bcd0838f25408a2f'; 
+const leagueId = 140; // La Liga (Spain)
+const teamId = 529; // FC Barcelona's team ID in API-Football
+const season = 2024; // 2024/25 season in API-Football format// API-Football
 const newsApiKey = 'a144c03c658dcf5e1c5c9ba8edd31c1e'; // GNews
 
 // HTML elements
@@ -7,6 +10,11 @@ const fixturesSection = document.getElementById('fixtures');
 const resultsSection = document.getElementById('recent-results');
 const standingsTableBody = document.getElementById('standings-table').getElementsByTagName('tbody')[0];
 const newsContainer = document.getElementById('news-container');
+
+// API-Football endpoints (corrected based on API documentation)
+const fixturesEndpoint = `v3/fixtures?league=${leagueId}&season=${season}&team=${teamId}`;
+const resultsEndpoint = `v3/results?league=${leagueId}&season=${season}&team=${teamId}`;
+const standingsEndpoint = `v3/standings?league=${leagueId}&season=${season}`;
 
 // Helper function to fetch data from API-Football
 async function fetchFootballData(endpoint) {
