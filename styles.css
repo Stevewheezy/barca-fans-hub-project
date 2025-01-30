@@ -274,53 +274,6 @@
 }
 
 /* Style for League Standings Table */
-#league-standings table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  text-align: center;
-}
-
-#league-standings table th, #league-standings table td {
-  border: 1px solid #a50044; /* Red border for cells */
-  padding: 10px;
-  font-size: 1rem;
-}
-
-#league-standings table th {
-  background-color: #004d98; /* Barça blue for headers */
-  color: white;
-  font-weight: bold;
-}
-
-#league-standings table tr:nth-child(even) {
-  background-color: #f9f9f9; /* Alternating row colors */
-}
-
-#league-standings table tr:nth-child(odd) {
-  background-color: #fff;
-}
-
-#league-standings table tr:hover {
-  background-color: #ffcc00; /* Highlight row on hover */
-  color: #004d98; /* Text changes to Barça blue */
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  #fixtures-section, #results-section, #standings-section {
-    padding: 15px;
-    font-size: 0.9rem;
-  }
-
-  .fixture-item, .result-item {
-    width: 90%; /* Full width for smaller screens */
-  }
-
-  #league-standings table {
-    font-size: 0.85rem; /* Smaller font for smaller screens */
-  }
-}
 
 
   /* News Section */
