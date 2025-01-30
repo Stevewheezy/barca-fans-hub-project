@@ -90,8 +90,47 @@
   <section id="news" class="section">
     <h2>Latest News</h2>
     <div id="news-container">
-      <!-- News dynamically loaded -->
+      <h3>Latest FC Barcelona News</h3>
+      <ul id="news-list"></ul>
     </div>
+    
+    <script>
+    async function fetchNews() {
+      const url = "https://news.google.com/rss/search?q=FC+Barcelona&hl=en-US&gl=US&ceid=US:en";
+      
+      try {
+        const response = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(url));
+        const data = await response.json();
+    
+        let newsHTML = "";
+        data.items.slice(0, 10).forEach(item => {
+          let imgSrc = extractImage(item.description) || "https://via.placeholder.com/150"; // Default if no image
+          newsHTML += `
+            <li style="display: flex; align-items: center; margin-bottom: 15px;">
+              <img src="${imgSrc}" alt="News Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+              <div>
+                <a href="${item.link}" target="_blank" style="font-weight: bold; text-decoration: none; color: #004d98;">${item.title}</a>
+                <p style="font-size: 12px; color: #555;">${new Date(item.pubDate).toLocaleDateString()}</p>
+              </div>
+            </li>
+          `;
+        });
+    
+        document.getElementById("news-list").innerHTML = newsHTML;
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    }
+    
+    // Function to extract the first image from the news description
+    function extractImage(description) {
+      let match = description.match(/<img.*?src=["'](.*?)["']/);
+      return match ? match[1] : null;
+    }
+    
+    fetchNews();
+    </script>
+    
   </section>
 
   <!-- Fan Zone Section -->
