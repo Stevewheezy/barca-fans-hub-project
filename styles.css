@@ -137,10 +137,6 @@
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Highlight Gallery Section */
-.highlight-gallery {
-  margin-top: 20px;
-}
 
 .video-section {
   margin-top: 10px;
@@ -273,9 +269,6 @@
   color: #ffcc00; /* Barça yellow for emphasis */
 }
 
-/* Style for League Standings Table */
-
-
   /* News Section */
   #news-container {
     display: grid;
@@ -283,6 +276,43 @@
     gap: 20px;
   }
   
+/* General styling */
+.news-item {
+  border: 1px solid #a50044; /* Red border */
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.news-item:nth-child(odd) {
+  background-color: #f0f0f0; /* Light gray background for alternating items */
+}
+
+.news-thumbnail {
+  max-width: 80px;
+  height: auto;
+  margin-right: 15px;
+  float: left; /* Float image to the left */
+}
+
+.news-content {
+  margin-left: 90px; /* Adjust for image width and margin */
+}
+
+/* Creative color variations (you can adjust these) */
+.news-item:nth-child(2n+1) { /* Odd items */
+  background-color: #004d98; /* Dark blue */
+  color: white;
+}
+
+.news-item:nth-child(2n+1) .news-content {
+  color: #ffd700; /* Gold for headings */
+}
+
+.news-item:nth-child(2n+1) h3 {
+  color: #ffd700; /* Gold for headings */
+}
+
   /* Fan Zone */
   #fan-form {
     display: flex;

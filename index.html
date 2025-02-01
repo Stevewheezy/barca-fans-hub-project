@@ -65,7 +65,7 @@
   <div id="fixtures-section">
     <h3>Upcoming Fixtures</h3>
     <div id="fixtures">
-      <iframe frameborder="0"  scrolling="no" width="320" height="200" src="https://www.fctables.com/teams/barcelona-181013/iframe/?type=team-next-match&lang_id=2&country=201&template=43&team=181013&timezone=Africa/Lagos&time=12&width=320&height=200&font=Verdana&fs=12&lh=18&bg=ffcc00&fc=&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&sh=1&hfb=1&hbc=a50044&hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
+      <iframe frameborder="0"  scrolling="no" width="250" height="150" src="https://www.fctables.com/teams/barcelona-181013/iframe/?type=team-next-match&lang_id=2&country=201&template=43&team=181013&timezone=Africa/Lagos&time=12&width=250&height=200&font=Verdana&fs=18&lh=18&bg=ffcc00&fc=&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&sh=1&hfb=1&hbc=a50044&hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
     </div>
   </div>
 
@@ -73,7 +73,7 @@
   <div id="results-section">
     <h3>Recent Results</h3>
     <div id="recent-results">
-      <iframe frameborder="0"  scrolling="no" width="320" height="150" src="https://www.fctables.com/teams/barcelona-181013/iframe/?type=team-last-match&lang_id=2&country=201&template=43&team=181013&timezone=Africa/Lagos&time=12&width=320&height=150&font=Verdana&fs=12&lh=22&bg=a50044&fc=&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
+      <iframe frameborder="0"  scrolling="no" width="250" height="150" src="https://www.fctables.com/teams/barcelona-181013/iframe/?type=team-last-match&lang_id=2&country=201&template=43&team=181013&timezone=Africa/Lagos&time=12&width=250&height=100&font=Verdana&fs=18&lh=22&bg=a50044&fc=&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
     </div>
   </div>
   
@@ -81,33 +81,28 @@
 <div id="standings-section">
   <h3>League Standings</h3>
   <div class="league-table-container">
-    <iframe frameborder="0"  scrolling="no" width="320" height="150" src="https://www.fctables.com/spain/liga-bbva/iframe/?type=table&lang_id=2&country=201&template=43&team=181013&timezone=Africa/Lagos&time=12&po=1&ma=1&wi=0&dr=0&los=0&gf=0&ga=0&gd=1&pts=1&ng=0&form=0&width=320&height=150&font=Verdana&fs=12&lh=18&bg=a50044&fc=&tlink=1&ths=1&thb=1&thba=FFFFFF&thc=000000&bc=dddddd&hob=f5f5f5&hobc=ebe7e7&lc=333333&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
+    <iframe frameborder="0"  scrolling="no" width="280" height="170" src="https://www.fctables.com/spain/liga-bbva/iframe/?type=table&lang_id=2&country=201&template=43&team=181013&timezone=Africa/Lagos&time=12&po=1&ma=1&wi=0&dr=0&los=0&gf=0&ga=0&gd=1&pts=1&ng=0&form=0&width=220&height=120&font=Verdana&fs=15&lh=18&bg=a50044&fc=&tlink=1&ths=1&thb=1&thba=FFFFFF&thc=000000&bc=dddddd&hob=f5f5f5&hobc=ebe7e7&lc=333333&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF"></iframe><div style="text-align:center;"></div>
 </div>
 </div>
 </section>
 
-  <!-- News Section -->
-  <section id="news" class="section">
-    <h2>Latest News</h2>
-    <div id="news-container">
-      <h3>Latest FC Barcelona News</h3>
-      <ul id="news-list"></ul>
-    </div>
+  c
     
     <script>
     async function fetchNews() {
-      const url = "https://news.google.com/rss/search?q=FC+Barcelona&hl=en-US&gl=US&ceid=US:en";
-      
+      const apiKey = "pub_671589bd47d84db31263623611a1cd75f86e1"; // Your API Key
+      const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=FC%20Barcelona&language=en&country=es&category=sports`;
+    
       try {
-        const response = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(url));
+        const response = await fetch(url);
         const data = await response.json();
     
         let newsHTML = "";
-        data.items.slice(0, 10).forEach(item => {
-          let imgSrc = extractImage(item.description) || "https://via.placeholder.com/150"; // Default if no image
+        data.results.slice(0, 10).forEach(item => {
+          let imgSrc = item.image_url || "https://via.placeholder.com/150"; // Use article image or placeholder
           newsHTML += `
-            <li style="display: flex; align-items: center; margin-bottom: 15px;">
-              <img src="${imgSrc}" alt="News Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px;">
+            <li style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+              <img src="${imgSrc}" alt="News Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 10px; border-radius: 5px;">
               <div>
                 <a href="${item.link}" target="_blank" style="font-weight: bold; text-decoration: none; color: #004d98;">${item.title}</a>
                 <p style="font-size: 12px; color: #555;">${new Date(item.pubDate).toLocaleDateString()}</p>
@@ -119,18 +114,13 @@
         document.getElementById("news-list").innerHTML = newsHTML;
       } catch (error) {
         console.error("Error fetching news:", error);
+        document.getElementById("news-list").innerHTML = "<p style='color:red;'>Failed to load news.</p>";
       }
-    }
-    
-    // Function to extract the first image from the news description
-    function extractImage(description) {
-      let match = description.match(/<img.*?src=["'](.*?)["']/);
-      return match ? match[1] : null;
     }
     
     fetchNews();
     </script>
-    
+        
   </section>
 
   <!-- Fan Zone Section -->
